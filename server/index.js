@@ -13,7 +13,7 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 5000;
 
-// Database connection
+// Database connection creation
 connectdb();
 
 // Rutes
