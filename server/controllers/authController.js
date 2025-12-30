@@ -1,5 +1,5 @@
-const { json } = require('express');
 const userModel = require('../models/user');
+const bcrypt = require('bcryptjs');
 const JWT = require('jsonwebtoken');
 
 // register function
@@ -40,19 +40,19 @@ const register = async (req, res) => {
 // Login function
 const login = async (req, res) => {
     try {
-        const { identyfier, password } = req.body;
+        const { identifier, password } = req.body;
 
         // Check if identifier and password are provided.
 
-        if (!identyfier || !password) {
+        if (!identifier || !password) {
             return res.status(400).json({ message: 'Please provide email/username and password' });
         }
 
         // Find the user
-        const user = userModel.findOne({
+        const user = await userModel.findOne({
             $or: [
-                {email: identyfier},
-                {password: identyfier}
+                {email: identifier.toLowerCase()},
+                {username: identifier.toLowerCase()}
             ]
         });
 
@@ -83,7 +83,7 @@ const login = async (req, res) => {
                 email: user.email
             }
         });
-    } catch {
+    } catch (err) {
         console.error(err);
         res.status(500).json({ mssage: 'Server site error' });
     }
