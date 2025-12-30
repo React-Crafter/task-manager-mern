@@ -11,7 +11,7 @@ const auth = async (req, res, next) => {
         const token = authHeader.replace('Bearer ', '').trim();
 
         // Verify token
-        const decoded = JWT.verify(token, process.env.JWT_SECRE);
+        const decoded = JWT.verify(token, process.env.JWT_SECRET);
         req.user = {id: decoded.id};
 
         next();
