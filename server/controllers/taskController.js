@@ -1,5 +1,5 @@
 const { text, json } = require('express');
-const taslModel = require('../models/task');
+const taskModel = require('../models/task');
 
 // Create a new task
 const createTask = async (req, res) => {
@@ -11,7 +11,7 @@ const createTask = async (req, res) => {
         }
 
         // Create a new task
-        const task = taslModel({
+        const task = taskModel({
             title,
             description,
             status,
@@ -32,7 +32,7 @@ const createTask = async (req, res) => {
 // Get all tasks of logged in user
 const getMyTasks = async (req, res) => {
     try {
-        const tasks = await taslModel.find({ user: req.user.id }).sort({ createdAt: -1 });
+        const tasks = await taskModel.find({ user: req.user.id }).sort({ createdAt: -1 });
 
         return res.status(200).json(tasks);
     } catch (err) {j
@@ -47,7 +47,7 @@ const updateTask = async (req, res) => {
         const {title, description, status, paioraty, dueDate} = req.body;
 
         // Find the task
-        const task = taslModel.findOne({ _id: req.params.id, user: req.user.id });
+        const task = await taskModel.findOne({ _id: req.params.id, user: req.user.id });
 
         if (!task) {
             return res.status(404).json({ msg: 'Task not found' });
@@ -72,13 +72,16 @@ const updateTask = async (req, res) => {
 // Delete a task
 const deleteTask = async (req, res) => {
     try {
-        const task = await findOneAndDelete({ _id: req.params.id, user: req.user.id });
+        const task = await taskModel.findOneAndDelete({ _id: req.params.id, user: req.user.id });
 
         if (!task) {
             return res.status(404).json({ msg: 'Task not found' });
         }
 
-        return res.status(200),json(task);
+        return res.status(200).json({
+            message: "task deleted successfully",
+            task
+        });
     } catch (err) {
         console.error(err);
         return res.status(500).json({ message: 'Servet site error' });

@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/auth', authRoutes);   // Public routes: /api/auth/register, /api/auth/login
 app.use('/api/users', userRoutes);   // Protected: /api/users/me
-app.use('api/tasks', taskRoutes);
+app.use('/api/tasks', taskRoutes);
 
 // Start the server
 app.listen(PORT, () => {
