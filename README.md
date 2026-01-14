@@ -1,7 +1,6 @@
 # Task Manager (MERN Stack)
 
 ![Project Banner](link-to-your-banner-image-if-any)  
-<!-- যদি ব্যানার ইমেজ থাকে তাহলে লিঙ্ক দাও, না থাকলে লাইনটা ডিলিট করো -->
 
 A modern, Trello-inspired Task Manager application built with the **MERN stack** (MongoDB, Express.js, React.js, Node.js). Features Kanban board with drag-and-drop, user authentication, dark mode, and responsive design.
 
