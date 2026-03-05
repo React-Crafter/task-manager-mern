@@ -1,16 +1,18 @@
 import React from 'react'
 import TaskOverview from '../components/TaskOverview'
+import KanbanBoard from '../components/kanbanBoard'
 
 function Dashboard() {
+    
     return (
-        <div className='nter-font mt-[100px]'>
+        <div className='inter-font mt-25'>
             <div className='container mx-auto'>
-                <div>
+                <div className='mb-8'>
                     <TaskOverview></TaskOverview>
                 </div>
 
                 <div>
-                    
+                    <KanbanBoard></KanbanBoard>
                 </div>
             </div>
         </div>

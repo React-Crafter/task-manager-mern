@@ -29,14 +29,16 @@ function TaskOverview() {
             <div className='grid grid-col-1 sm:grid-cols-3 gap-2'>
                 {
                     TaskOverview.map((task, index) => (
-                        <div className='rounded-xl p-5 bg-[#121216cc] border border-[1px] border-[#16a2491a]'>
+                        <div key={task.status} className=' bg-[#14151a]/80 backdrop-blur-xl border border-[#2a2d36]/50 hover:bg-[#14151a]/90 hover:blur-none hover:border-[#2a2d36] transition-all duration-300 rounded-xl p-5'>
                             <div className='text-[#1a9fdb] flex items-start justify-between'>
                                 <div className={`p-2.5 rounded-lg ${task.iconbgColor}`}>
                                     {task.icon}
                                 </div>
                             </div>
-                            <p className='text-3xl font-bold text-white'> {task.numbers} </p>
-                            <p className='text-sm text-muted-foreground font-medium mt-1'> {task.status} </p>
+                            <div className='ml-1'>
+                                <p className='text-3xl font-bold'> {task.numbers} </p>
+                                <p className='text-sm text-muted-foreground font-medium mt-1'> {task.status} </p>
+                            </div>
                         </div>
                     ))
                 }
