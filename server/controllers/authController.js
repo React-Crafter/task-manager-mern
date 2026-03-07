@@ -7,6 +7,23 @@ const register = async (req, res) => {
     try {
         const { name, username, email, password } = req.body;
 
+        // validation
+        if (!email) {
+            return res.status(400).json({ message: 'email is required'});
+        }
+
+        if (!username) {
+            return res.status(400).json({ message: 'username is required'});
+        }
+
+        if (!password) {
+            return res.status(400).json({ message: 'password is required'});
+        }
+
+        if (!name) {
+            return res.status(400).json({ message: 'name is required'});
+        }
+
         // check dublicate
         const existingUsername = await userModel.findOne({ username });
         if (existingUsername) {

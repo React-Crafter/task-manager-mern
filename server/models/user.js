@@ -13,7 +13,7 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true,
         trim: true,
-        unique: true,
+        unique: [true, 'this username alredy used'],
         minlenght: 3,
         maxlenght: 20,
         match: /^[a-zA-Z0-9_]+$/,
@@ -21,9 +21,9 @@ const userSchema = mongoose.Schema({
     },
     email: {
         type: String,
-        required: true,
+        required: [true, 'Email is required'],
         trim: true,
-        unique: true,
+        unique: [true, "email is alredy used"],
         lowercase: true
     },
     password: {

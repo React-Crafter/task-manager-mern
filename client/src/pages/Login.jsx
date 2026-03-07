@@ -18,6 +18,9 @@ function Login() {
             if (user) {
                 localStorage.removeItem('token');
             }
+            if (loading) {
+                return;
+            }
             const loginUser = await login(identifier, password);
             console.log(loginUser)
             navigate('/dasbord');

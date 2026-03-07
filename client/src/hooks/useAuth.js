@@ -45,5 +45,22 @@ export const useAuth = () => {
             setLoading(false)
         }
     }
-    return { user, loading, error, login };
+
+    // Register function
+    const register = async (name, username, email, password) => {
+        setLoading(true);
+        try {
+            const res = await api.post('/auth/register', {name, username, email, password});
+            localStorage.setItem('token', res.data.token);
+            setUser(res.data.user);
+            setError(null);
+            return res.data;
+        } catch (err) {
+            setError(err.response?.data?.message || 'registation filed');
+            throw err;
+        } finally {
+            setLoading(false)
+        }
+    }
+    return { user, loading, error, login, register };
 }

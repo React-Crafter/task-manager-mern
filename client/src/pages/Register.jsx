@@ -1,12 +1,34 @@
 import React, { useState } from 'react'
 import logo from '../assets/logo.svg';
-import { User, AtSign, Mail, EyeOff, Eye, Lock } from 'lucide-react';
-import { Link } from 'react-router';
+import { User, AtSign, Mail, EyeOff, Eye, Lock, LoaderCircle } from 'lucide-react';
+import { Link, useNavigate } from 'react-router';
+import { useAuth } from '../hooks/useAuth';
 
 function Register() {
     const [passIsHidden, setPassIsHidden] = useState(true);
-    const submitHandaler = (e) => {
+    const [name, setName] = useState('');
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const {register, loading, error, user} = useAuth();
+    const navigate = useNavigate();
+
+    const submitHandaler = async (e) => {
         e.preventDefault();
+        if (user) {
+            localStorage.removeItem('token');
+        }
+        if (loading) {
+            return;
+        }
+        try {
+            const ragisteredUser = await register(name, username, email, password);
+            console.log(ragisteredUser);
+            navigate('/dasbord');
+        } catch (err) {
+            console.log(err);
+        }
     }
     return (
         <div className='flex justify-center w-full h-full login-bg'>
@@ -52,9 +74,9 @@ function Register() {
                                 <input onChange={(e) => setPassword(e.target.value)} className='flex h-10 w-full rounded-md border px-3 py-2 text-base ring-offset-[#09090b] file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8b5cf6] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm pl-10 bg-secondary border-[#292932]' type={passIsHidden ? 'password' : 'text'} id='password' placeholder='••••••••' />
                                 <button className='absolute right-3 hover:cursor-pointer' onClick={() => setPassIsHidden(!passIsHidden)} type='button'> {passIsHidden ? <EyeOff className='h-4 w-4 text-gray-400 hover:text-white'/> : <Eye className='h-4 w-4 text-gray-400 hover:text-white' />} </button>
                             </div>
-                            {/* {error && <p className='text-red-500'>{error}</p> } */}
+                            {error && <p className='text-red-500'>{error}</p> }
                         </div>
-                        <button className='inline-flex hover:cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8b5cf6] focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground hover:bg-hovered h-10 px-4 py-2 w-full glow'> Register </button>
+                        <button className='inline-flex hover:cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8b5cf6] focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground hover:bg-hovered h-10 px-4 py-2 w-full glow'> {loading ? <LoaderCircle className='animate-spin'/> : 'Register' } </button>
                     </form>
                     <p className='text-center text-sm text-muted-foreground mt-6'> Already have an account? <Link className='text-primary hover:underline font-medium' to={'/login'}> Login </Link> </p>
                 </div>
