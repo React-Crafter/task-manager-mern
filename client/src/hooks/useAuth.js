@@ -62,5 +62,10 @@ export const useAuth = () => {
             setLoading(false)
         }
     }
-    return { user, loading, error, login, register };
+    const logout = () => {
+        localStorage.removeItem('token')
+        setUser(null)
+        setError(null)
+    }
+    return { user, loading, error, login, register, logout };
 }

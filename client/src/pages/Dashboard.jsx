@@ -1,8 +1,13 @@
 import React from 'react'
 import TaskOverview from '../components/TaskOverview'
 import KanbanBoard from '../components/kanbanBoard'
+import { useTasks } from '../hooks/useTasks'
 
 function Dashboard() {
+
+    const {tasks, isLoading, error} = useTasks();
+
+    console.log(isLoading)
     
     return (
         <div className='inter-font mt-25'>
