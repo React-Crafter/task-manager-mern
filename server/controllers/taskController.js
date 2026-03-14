@@ -35,7 +35,7 @@ const getMyTasks = async (req, res) => {
         const tasks = await taskModel.find({ user: req.user.id }).sort({ createdAt: -1 });
 
         return res.status(200).json(tasks);
-    } catch (err) {j
+    } catch (err) {
         console.error(err);
         return res.status(5000).json({ message: 'server site error' });
     }

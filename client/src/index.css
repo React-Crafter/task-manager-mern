@@ -54,6 +54,12 @@ body {
   min-height: 100vh;
   background: #000;
 }
+.glass-hover {
+    transition-property: all;
+    transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+    transition-duration: .3s;
+    animation-duration: .3s;
+}
 
 .blob-left {
   position: absolute;

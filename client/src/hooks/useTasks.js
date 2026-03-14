@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import api from '../services/api'; // তোমার axios instance
+import api from '../services/api'; // axios instance
 
 export const useTasks = () => {
   const queryClient = useQueryClient();
@@ -68,8 +68,8 @@ export const useTasks = () => {
     isLoading,
     isError,
     error,
-    createTask: createTask.mutate,
-    updateTask: updateTask.mutate,
-    deleteTask: deleteTask.mutate,
+    createTask: createTask.mutateAsync,
+    updateTask: updateTask.mutateAsync,
+    deleteTask: deleteTask.mutateAsync,
   };
 };
